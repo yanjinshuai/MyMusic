@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.min.css">
+    <script src="./js/flexible.js"></script>
+</head>
+
+<body>
+    <audio src="./audio/五月天 - 演唱会催泪大集合 (Live).mp3"></audio>
+    <div class="wrapper">
+        <div class="img"><img src="./img/催泪大合集.jpg" alt=""></div>
+        <div class="con">
+            <p class="prev">上一曲</p>
+            <p class="play">★</p>
+            <p class="next">下一曲</p>
+        </div>
+    </div>
+    <script>
+        var arr = [{
+            img: 'img/催泪大集合.jpg',
+            audio: '五月天 - 演唱会催泪大集合 (Live).mp3'
+        }, {
+            img: 'img/1.jpg',
+            audio: 'audio/dj.mp3'
+        }, {
+            img: 'img/2.jpg',
+            audio: 'audio/Good Time.mp3'
+        }, {
+            img: 'img/3.jpg',
+            audio: 'audio/爱情魔法.mp3'
+        }]
+        var wrapper = document.querySelector('.wrapper'),
+            audio = document.querySelector('audio'),
+            img = document.querySelector('.img'),
+            prev = document.querySelector('.prev'),
+            next = document.querySelector('.next'),
+            play = document.querySelector('.play');
+        var index = 0,
+            falg = false;
+        play.addEventListener('click', function() {
+            if (falg) {
+                this.innerHTML = '★';
+                audio.pause();
+                falg = false;
+                img.firstElementChild.classList.remove('rot');
+            } else {
+                this.innerHTML = '‖';
+                audio.play();
+                falg = true;
+                img.firstElementChild.classList.add('rot');
+            }
+        })
+        next.addEventListener('click', function() {
+            index++;
+            index = index > arr.length - 1 ? 0 : index;
+            wrapper.style.backgroundImage = `url("${arr[index].img}")`;
+
+            img.firstElementChild.src = arr[index].img;
+            audio.src = arr[index].audio;
+            play.innerHTML = '‖';
+            audio.play();
+            falg = true;
+            img.firstElementChild.classList.add('rot');
+        })
+        prev.addEventListener('click', function() {
+            index--;
+            index = index < 0 ? arr.length - 1 : index;
+            wrapper.style.backgroundImage = `url("${arr[index].img}")`;
+            img.firstElementChild.src = arr[index].img;
+            audio.src = arr[index].audio;
+            play.innerHTML = '‖';
+            audio.play();
+            falg = true;
+            img.firstElementChild.classList.add('rot');
+        })
+    </script>
+</body>
+
+</html>
